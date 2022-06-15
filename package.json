@@ -1,0 +1,21 @@
+{
+  "name": "tl3-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "startApp": "live-server client/ --cors --port=4200",
+    "startServer": "nodemon server/index.js",
+    "start": "concurrently \"live-server client/ --cors --port=4200\" \"nodemon server/index.js\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^7.2.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "live-server": "^1.1.0",
+    "nodemon": "^2.0.16"
+  }
+}

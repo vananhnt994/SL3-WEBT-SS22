@@ -1,0 +1,396 @@
+{
+  "modules": [
+    {
+      "moduleName": "Stat-B-01",
+      "moduleAcronym": "Methoden der Statistik I",
+      "ects": 6,
+      "moduleGroup": "A1"
+    },
+    {
+      "moduleName": "Stat-B-02",
+      "moduleAcronym": "Methoden der Statistik II",
+      "ects": 6,
+      "moduleGroup": "A1"
+    },
+    {
+      "moduleName": "WiMa-B-01b",
+      "moduleAcronym": "Mathematik in den Wirtschaftswissenschaften I",
+      "ects": 4,
+      "moduleGroup": "A1"
+    },
+    {
+      "moduleName": "GdI-MfI-1",
+      "moduleAcronym": "Mathematik für Informatik 1 (Aussagen- u. Prädikatenlogik)",
+      "ects": 6,
+      "moduleGroup": "A1"
+    },
+    {
+      "moduleName": "KTR-MfI-2",
+      "moduleAcronym": "Mathematik für Informatik 2 (Lineare Algebra)",
+      "ects": 6,
+      "moduleGroup": "A1"
+    },
+    {
+      "moduleName": "AI-AuD-B",
+      "moduleAcronym": "Algorithmen und Datenstrukturen",
+      "ects": 6,
+      "moduleGroup": "A2"
+    },
+    {
+      "moduleName": "MOBI-DBS-B",
+      "moduleAcronym": "Datenbanksysteme",
+      "ects": 6,
+      "moduleGroup": "A2"
+    },
+    {
+      "moduleName": "DSG-EiAPS-B",
+      "moduleAcronym": "Einführung in Algorithmen, Programmierung und Software",
+      "ects": 6,
+      "moduleGroup": "A2"
+    },
+    {
+      "moduleName": "DSG-JaP-B",
+      "moduleAcronym": "Java Programmierung",
+      "ects": 3,
+      "moduleGroup": "A2"
+    },
+    {
+      "moduleName": "DSG-AJP-B",
+      "moduleAcronym": "Fortgeschrittene Java Programmierung",
+      "ects": 3,
+      "moduleGroup": "A2"
+    },
+    {
+      "moduleName": "GdI-GTI-B",
+      "moduleAcronym": "Grundlagen der Theoretischen Informatik",
+      "ects": 6,
+      "moduleGroup": "A2"
+    },
+    {
+      "moduleName": "SWT-FSE-B",
+      "moduleAcronym": "Foundations of Software Engineering",
+      "ects": 6,
+      "moduleGroup": "A2"
+    },
+    {
+      "moduleName": "PSI-EiRBS-B",
+      "moduleAcronym": "Einführung in Rechner- und Betriebssysteme",
+      "ects": 6,
+      "moduleGroup": "A2"
+    },
+    {
+      "moduleName": "PSI-IntroSP-B",
+      "moduleAcronym": "Introduction to Security and Privacy",
+      "ects": 6,
+      "moduleGroup": "A2"
+    },
+    {
+      "moduleName": "DSG-PKS-B",
+      "moduleAcronym": "Programmierung komplexer interagierender Systeme",
+      "ects": 3,
+      "moduleGroup": "A2"
+    },
+    {
+      "moduleName": "GdI-IFP-B",
+      "moduleAcronym": "Introduction to Functional Programming",
+      "ects": 6,
+      "moduleGroup": "A2"
+    },
+    {
+      "moduleName": "GdI-MTL",
+      "moduleAcronym": "Modal and Temporal Logic",
+      "ects": 6,
+      "moduleGroup": "A2"
+    },
+    {
+      "moduleName": "KTR-Datkomm-B",
+      "moduleAcronym": "Datenkommunikation",
+      "ects": 6,
+      "moduleGroup": "A2"
+    },
+    {
+      "moduleName": "MOBI-MSS-B",
+      "moduleAcronym": "Mobility in Software Systems",
+      "ects": 6,
+      "moduleGroup": "A2"
+    },
+    {
+      "moduleName": "AI-KI-B",
+      "moduleAcronym": "Einführung in die Künstliche Intelligenz",
+      "ects": 6,
+      "moduleGroup": "A3"
+    },
+    {
+      "moduleName": "HCI-IS-B",
+      "moduleAcronym": "Interaktive Systeme",
+      "ects": 6,
+      "moduleGroup": "A3"
+    },
+    {
+      "moduleName": "KInf-GeoInf-B",
+      "moduleAcronym": "Geoinformationssysteme",
+      "ects": 6,
+      "moduleGroup": "A3"
+    },
+    {
+      "moduleName": "MI-EMI-B",
+      "moduleAcronym": "Einführung in die Medieninformatik",
+      "ects": 6,
+      "moduleGroup": "A3"
+    },
+    {
+      "moduleName": "VIS-GIV-B",
+      "moduleAcronym": "Grundlagen der Informationsvisualisierung",
+      "ects": 6,
+      "moduleGroup": "A3"
+    },
+    {
+      "moduleName": "KInf-DigBib-B",
+      "moduleAcronym": "Digitale Bibliotheken und Social Computing",
+      "ects": 6,
+      "moduleGroup": "A3"
+    },
+    {
+      "moduleName": "MI-WebT-B",
+      "moduleAcronym": "Web-Technologien",
+      "ects": 6,
+      "moduleGroup": "A3"
+    },
+    {
+      "moduleName": "HCI-KS-B",
+      "moduleAcronym": "Kooperative Systeme",
+      "ects": 6,
+      "moduleGroup": "A3"
+    },
+    {
+      "moduleName": "HCI-US-B",
+      "moduleAcronym": "Ubiquitäre Systeme",
+      "ects": 6,
+      "moduleGroup": "A3"
+    },
+    {
+      "moduleName": "SME-Phy-B",
+      "moduleAcronym": "Physical Computing",
+      "ects": 6,
+      "moduleGroup": "A3"
+    },
+    {
+      "moduleName": "EESYS-GEI-B",
+      "moduleAcronym": "Grundlagen der Energieinformatik",
+      "ects": 6,
+      "moduleGroup": "A3"
+    },
+    {
+      "moduleName": "MI-WAIAI-B",
+      "moduleAcronym": "Einführung in das wissenschaftliche Arbeiten für Informatik und Angewandte Informatik",
+      "ects": 3,
+      "moduleGroup": "A5"
+    },
+    {
+      "moduleName": "PSI-EDS-B",
+      "moduleAcronym": "Ethics for the Digital Society",
+      "ects": 3,
+      "moduleGroup": "A5"
+    },
+    {
+      "moduleName": "EESYS-IITP-B",
+      "moduleAcronym": "Internationales IT-Projektmanagement",
+      "ects": 6,
+      "moduleGroup": "A5"
+    },
+    {
+      "moduleName": "HCI-DISTP-B",
+      "moduleAcronym": "Design Interaktiver Systeme: Theorie und Praxis",
+      "ects": 3,
+      "moduleGroup": "A5"
+    },
+    {
+      "moduleName": "KogSys-GAI-B",
+      "moduleAcronym": "Genderaspekte in der Informatik",
+      "ects": 3,
+      "moduleGroup": "A5"
+    },
+    {
+      "moduleName": "HCI-Sem-B",
+      "moduleAcronym": "Bachelorseminar Mensch-Computer-Interaktion",
+      "ects": 3,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "KInf-Seminar-B",
+      "moduleAcronym": "Bachelorseminar Kulturinformatik",
+      "ects": 3,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "KogSys-Sem-B",
+      "moduleAcronym": "Bachelorseminar Kognitive Systeme",
+      "ects": 3,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "MI-Sem-B",
+      "moduleAcronym": "Bachelorseminar zur Medieninformatik",
+      "ects": 3,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "SME-Sem-B",
+      "moduleAcronym": "Bachelorseminar zu Smart Environments",
+      "ects": 3,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "VIS-Sem-B",
+      "moduleAcronym": "Bachelorseminar Informationsvisualisierung",
+      "ects": 3,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "DSG-Sem-B",
+      "moduleAcronym": "Bachelorseminar zur Praktischen Informatik",
+      "ects": 3,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "GdI-Sem-B",
+      "moduleAcronym": "Bachelorseminar Grundlagen der Informatik",
+      "ects": 3,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "KTR-Sem-B",
+      "moduleAcronym": "Bachelorseminar zu Kommunikationssystemen und Rechnernetzen",
+      "ects": 3,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "MOBI-SEM-B",
+      "moduleAcronym": "Bachelor-Seminar Mobile Software Systems",
+      "ects": 3,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "PSI-Sem-B",
+      "moduleAcronym": "Seminar Security and Privacy Foundations",
+      "ects": 3,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "SWT-SEM-B",
+      "moduleAcronym": "Seminar Software Engineering and Programming Languages",
+      "ects": 3,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "WI-Seminar-B",
+      "moduleAcronym": "Bachelorseminar aus der Fächergruppen Wirtschaftsinformatik",
+      "ects": 3,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "HCI-Proj-B",
+      "moduleAcronym": "Projekt Mensch-Computer-Interaktion",
+      "ects": 6,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "KInf-Projekt-B",
+      "moduleAcronym": "Bachelorprojekt Kulturinformatik",
+      "ects": 6,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "KogSys-Proj-B",
+      "moduleAcronym": "Bachelor-Projekt Kognitive Systeme",
+      "ects": 6,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "MI-Proj-B",
+      "moduleAcronym": "Projekt zur Medieninformatik [Bachelor]",
+      "ects": 6,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "SME-Projekt-B",
+      "moduleAcronym": "Bachelorprojekt zu Smart Environments",
+      "ects": 6,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "DSG-Project-B",
+      "moduleAcronym": "Bachelorprojekt zur Praktischen Informatik",
+      "ects": 6,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "GdI-Proj-B",
+      "moduleAcronym": "Bachelorprojekt Grundlagen der Informatik",
+      "ects": 6,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "KTR-Proj",
+      "moduleAcronym": "Projekt Kommunikationsnetze und -dienste",
+      "ects": 6,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "MOBI-Proj-B",
+      "moduleAcronym": "Bachelor Project Mobile Software Systems",
+      "ects": 6,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "PSI-ProjectPAD",
+      "moduleAcronym": "Project Practical Attacks and Defenses",
+      "ects": 6,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "SWT-SWL-B",
+      "moduleAcronym": "Software Engineering Lab",
+      "ects": 6,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "SWT-SWP-B",
+      "moduleAcronym": "Software Engineering Project",
+      "ects": 6,
+      "moduleGroup": "A6"
+    },
+    {
+      "moduleName": "AI-Thesis-B",
+      "moduleAcronym": "Bachelorarbeit im Studiengang Angewandte Informatik",
+      "ects": 12,
+      "moduleGroup": "A7"
+    }
+  ],
+  "moduleGroups": [
+    {
+      "acronym": "A1",
+      "title": "Mathematische Grundlagen"
+    },
+    {
+      "acronym": "A2",
+      "title": "Informatik"
+    },
+    {
+      "acronym": "A3",
+      "title": "Angewandte Informatik"
+    },
+    {
+      "acronym": "A5",
+      "title": "Überfachliche Qualifikationen"
+    },
+    {
+      "acronym": "A6",
+      "title": "Seminare und Projekte"
+    },
+    {
+      "acronym": "A7",
+      "title": "Bachelorarbeit"
+    }
+  ]
+}
