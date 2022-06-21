@@ -147,10 +147,9 @@
               .attr("dy", .35)
               .style("text-anchor", "middle")
               .style("opacity", 1)
-              //.text(function (d) {
-
-                //return d.data[yVarName];
-              //});
+              .text(function (d) {
+                return d.data[xVarName];
+              });
 
       count = 0;
       var legend = chart.selectAll(".legend")
