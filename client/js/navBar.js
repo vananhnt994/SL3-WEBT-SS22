@@ -57,14 +57,14 @@ $(document).ready(function($){
 // Add active class on another page linked
 //==========================================
 $(window).on('load',function () {
-    $('#navbarSupportedContent ul li a').each(function(){
-        var $this = $(this);
-        if($this.attr('class').contains('here') ){
-            $this.parent().addClass('active');
-            $this.parents('.menu-submenu').addClass('show-dropdown');
-            $this.parents('.menu-submenu').parent().addClass('active');
+    var navs = document.getElementsByClassName('nav-link')
+    for(let nav of navs) {
+        if(nav.classList.contains('here') ){
+            nav.parentElement.classList.add('active');
+
         }else{
-            $this.parent().removeClass('active');
+            nav.parentElement.classList.remove('active');
         }
-    })
+    }
+
 });

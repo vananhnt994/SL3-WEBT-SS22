@@ -3,8 +3,8 @@ moduleGroups = 'http://localhost:3000/moduleGroups'
 const loadDataFromServer =  async () => {
     // Anmerkung: Hier ist fetch(url, {mode: "cors"}) zu nutzen.
 
-    var moduleGroupsJSON =  fetchJSON(moduleGroups)
-    var modulesJSON =  fetchJSON(modulesUrl)
+    var moduleGroupsJSON =  await fetchJSON(moduleGroups)
+    var modulesJSON =  await fetchJSON(modulesUrl)
     return {'modules':modulesJSON['modules'], 'modulesGroup':moduleGroupsJSON['moduleGroups']}
 }
 let fetchJSON = async  (url) => {
@@ -16,11 +16,9 @@ let fetchJSON = async  (url) => {
             'Content-Type': 'application/json'
         },
     })
-    return res.json()
+    return await res.json()
 }
-$(document).ready(() => {
-    loadDataFromServer()
-})
+
 function loadDataFromFile(file, callback) {
     var rawFile = new XMLHttpRequest();
     rawFile.overrideMimeType("application/json")
@@ -35,19 +33,11 @@ function loadDataFromFile(file, callback) {
 
 
 var chartInnerDiv = '<div class="innerCont" style="overflow: auto;top:100px; left: 400px; height:91% ; Width:100% ;position: relative;overflow: hidden;"/>';
-const homePage = () => {
+
+window.addEventListener('load',async () => {
     document.getElementById('content').innerHTML = ''
-    apiUrl  =   'https://web-t.l0e.de/tl2/news'
-    loadDataFromFile(apiUrl, (text) => {
-        var data = JSON.parse(text)
-        document.getElementById('content').innerHTML += `<h1>Willkommen zum Studiengang Wirtschaftsinformatik</h1></br>
-        <h2>PieChart befindet sich durch Navigationsbutton Diagramm</h2></br>
-        <h3>Hier sind Daten von letzter Studienleistung</h3></br>${JSON.stringify(data)}`
-    })
-}
-window.addEventListener('load',() => {
-    document.getElementById('content').innerHTML = ''
-    Plot()
+    var serverData = await loadDataFromServer()
+    Plot(serverData)
 })
 function Impressum() {
     document.getElementById('diagramm').classList.remove('here')
@@ -56,16 +46,19 @@ function Impressum() {
     document.getElementById('content').innerHTML += '<h1>Hier ist Impressum</h1>'
 }
 
-
-function Plot() {
+document.getElementById('diagramm').addEventListener('click', async function() {
+    var serverData = await loadDataFromServer()
+    Plot(serverData)
+})
+function Plot(datafromServer) {
     document.getElementById('diagramm').classList.add('here')
     document.getElementById('impressum').classList.remove('here')
     document.getElementById('content').innerHTML = ''
-    var datafromServer =  loadDataFromServer().then((text) => {return text})
-    console.log(datafromServer)
+
     if(datafromServer != null) {
         var chartData =  datafromServer['modules']
-        var options =  datafromServer['moduleGroups']
+        var options =  datafromServer['modulesGroup']
+
         var chartOptions = [
             {
                 "captions": options,
@@ -81,6 +74,7 @@ function Plot() {
     } else {
         loadDataFromFile('../data-backup.json', (text) => {
             var data = JSON.parse(text)
+            console.log('data:' + text)
             var chartData = data['modules']
             var options = data['moduleGroups']
             var chartOptions = [
