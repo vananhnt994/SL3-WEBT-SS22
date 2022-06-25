@@ -1,7 +1,26 @@
-function loadDataFromServer(){
+modulesUrl = 'http://localhost:3000/modules'
+moduleGroups = 'http://localhost:3000/moduleGroups'
+const loadDataFromServer =  async () => {
     // Anmerkung: Hier ist fetch(url, {mode: "cors"}) zu nutzen.
-}
 
+    var moduleGroupsJSON =  fetchJSON(moduleGroups)
+    var modulesJSON =  fetchJSON(modulesUrl)
+    return {'modules':modulesJSON['modules'], 'modulesGroup':moduleGroupsJSON['moduleGroups']}
+}
+let fetchJSON = async  (url) => {
+    const res = await fetch(url, {
+        mode: "cors",
+        method: "GET",
+        cache: "no-cache",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+    return res.json()
+}
+$(document).ready(() => {
+    loadDataFromServer()
+})
 function loadDataFromFile(file, callback) {
     var rawFile = new XMLHttpRequest();
     rawFile.overrideMimeType("application/json")
@@ -13,6 +32,7 @@ function loadDataFromFile(file, callback) {
     }
     rawFile.send(null)
 }
+
 
 var chartInnerDiv = '<div class="innerCont" style="overflow: auto;top:100px; left: 400px; height:91% ; Width:100% ;position: relative;overflow: hidden;"/>';
 const homePage = () => {
@@ -41,10 +61,11 @@ function Plot() {
     document.getElementById('diagramm').classList.add('here')
     document.getElementById('impressum').classList.remove('here')
     document.getElementById('content').innerHTML = ''
-    loadDataFromFile('../data-backup.json', (text) => {
-        var data = JSON.parse(text)
-        var chartData = data['modules']
-        var options = data['moduleGroups']
+    var datafromServer =  loadDataFromServer().then((text) => {return text})
+    console.log(datafromServer)
+    if(datafromServer != null) {
+        var chartData =  datafromServer['modules']
+        var options =  datafromServer['moduleGroups']
         var chartOptions = [
             {
                 "captions": options,
@@ -56,8 +77,26 @@ function Plot() {
         ]
         TransformChartData(chartData, chartOptions, 0);
         BuildPie("content", chartData, chartOptions, 0)
-    })
 
+    } else {
+        loadDataFromFile('../data-backup.json', (text) => {
+            var data = JSON.parse(text)
+            var chartData = data['modules']
+            var options = data['moduleGroups']
+            var chartOptions = [
+                {
+                    "captions": options,
+                    "color": [{ "A1": "#FFA500", "A2": "#0070C0", "A3": "#ff0000","A4":"#AE79D1","A5":"#79C8D1","A6":"#79D194","A7":"#C8D179"  }],
+                    "xaxis": "moduleGroup",
+                    "xaxisl1": "moduleName",
+                    "yaxis": "moduleAcronym"
+                }
+            ]
+            TransformChartData(chartData, chartOptions, 0);
+            BuildPie("content", chartData, chartOptions, 0)
+        })
+
+    }
 }
 
 
@@ -214,7 +253,7 @@ function BuildPie(id, chartData, options, level) {
 
 }
 
-function TransformChartData(chartData, opts, level, filter) {
+async function TransformChartData(chartData, opts, level, filter) {
     var result = [];
     var resultColors = [];
     var counter = 0;
@@ -280,9 +319,6 @@ function TransformChartData(chartData, opts, level, filter) {
             }
         }
     }
-    console.log(result)
-
-
     runningData = result;
     runningColors = resultColors;
     return;
