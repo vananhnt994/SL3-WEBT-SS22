@@ -43,7 +43,7 @@ function Impressum() {
     document.getElementById('diagramm').classList.remove('here')
     document.getElementById('impressum').classList.add('here')
     document.getElementById('content').innerHTML = ''
-    document.getElementById('content').innerHTML += '<h1>Hier ist Impressum</h1>'
+    document.getElementById('content').innerHTML += '<h1>Hier ist das Impressum</h1>'
 }
 
 document.getElementById('diagramm').addEventListener('click', async function() {
