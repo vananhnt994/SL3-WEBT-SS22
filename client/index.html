@@ -10,42 +10,37 @@
   <script src="./js/index.js" defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <title>Frontend</title>
+  <link  rel="stylesheet" href="style/chart.css">
+  <link  rel="stylesheet" href="style/navBar.css">
 
-  <style>
-    #chart text {
-      fill: black;
-      font: 10px sans-serif;
-      text-anchor: end;
-    }
-
-    .axis text {
-      font: 10px sans-serif;
-    }
-
-    .axis path, .axis line {
-      fill: none;
-      /*stroke: #fff;*/
-      shape-rendering: crispEdges;
-    }
-
-    body {
-      /*background: #1a1a1a;*/
-      color: #eaeaea;
-      padding: 10px;
-    }
-
-    path {
-      stroke: steelblue;
-      stroke-width: 2;
-      fill: none;
-    }
-  </style>
 </head>
 <body>
+<script src="./js/navBar.js"></script>
+<nav class="navbar navbar-expand-custom navbar-mainbg">
+  <a class="navbar-brand navbar-logo"  onclick="homePage()">Modules</a>
+  <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="fas fa-bars text-white"></i>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
+      <li class="nav-item">
+        <a class="nav-link" onclick="Impressum()"><i class="far impressum"></i>Impressum</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" onclick="Plot()" ><i class="far fa-diagramm"></i>Diagramm</a>
+      </li>
 
 
-    <div id="chart" style="height:600px;width:600px">
+    </ul>
+  </div>
+</nav>
+
+    <div id="content">
       <div class="innerCont" style="overflow: auto; top:100px; left: 400px; height:91% ; Width:100% ;position: relative;overflow: hidden;"></div>
     </div>
+
+
 </body>
+
 </html>

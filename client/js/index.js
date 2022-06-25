@@ -14,15 +14,29 @@ function loadDataFromFile(file, callback) {
     rawFile.send(null)
 }
 
-var salesData;
 var chartInnerDiv = '<div class="innerCont" style="overflow: auto;top:100px; left: 400px; height:91% ; Width:100% ;position: relative;overflow: hidden;"/>';
-var truncLengh = 30;
+const homePage = () => {
+    document.getElementById('content').innerHTML = ''
+    apiUrl  =   'https://web-t.l0e.de/tl2/news'
+    loadDataFromFile(apiUrl, (text) => {
+        var data = JSON.parse(text)
+        document.getElementById('content').innerHTML += `<h1>Willkommen zum Studiengang Wirtschaftsinformatik</h1></br>
+<h2>PieChart befindet sich durch Navigationsbutton Diagramm</h2></br>
+<h3>Hier sind Daten von letzter Studienleistung</h3></br>${JSON.stringify(data)}`
+    })
+}
+window.addEventListener('load',() => {
+    document.getElementById('content').innerHTML = ''
+    Plot()
+})
+function Impressum() {
+    document.getElementById('content').innerHTML = ''
+    document.getElementById('content').innerHTML += '<h1>Hier ist Impressum</h1>'
+}
 
-$(document).ready(function () {
-    Plot();
-});
 
 function Plot() {
+    document.getElementById('content').innerHTML = ''
     loadDataFromFile('../data-backup.json', (text) => {
         var data = JSON.parse(text)
         var chartData = data['modules']
@@ -36,13 +50,12 @@ function Plot() {
                 "yaxis": "moduleAcronym"
             }
         ]
-        console.log("charData: "+ chartData);
-        console.log("options " + chartOptions);
         TransformChartData(chartData, chartOptions, 0);
-        BuildPie("chart", chartData, chartOptions, 0)
+        BuildPie("content", chartData, chartOptions, 0)
     })
 
 }
+
 
 function BuildPie(id, chartData, options, level) {
     var xVarName;
@@ -61,16 +74,15 @@ function BuildPie(id, chartData, options, level) {
         xVarName = options[0].xaxisl1;
     }
     else {
-
         xVarName = options[0].xaxis;
     }
     var rcolor = d3.scaleOrdinal().range(runningColors);
 
     var arc = d3.arc()
         .outerRadius(radius)
-        .innerRadius(radius - 200);
+        .innerRadius(radius - 290);
 
-    var arcOver = d3.arc().outerRadius(radius + 20).innerRadius(radius - 180);
+    var arcOver = d3.arc().outerRadius(radius + 20).innerRadius(radius - 250);
 
     var chart = d3.select("#" + id + " .innerCont")
         .append("svg")  //append svg element inside #chart
@@ -94,12 +106,19 @@ function BuildPie(id, chartData, options, level) {
 
     var path = g.append("path")
         .attr("d", arc)
+        .attr('class','path')
         .attr("id", function () { return "arc-" + (count++); })
         .style("opacity", function (d) {
             return d.data["op"];
-        });
+        })
+        .attr("title", function (d) {return `${d.data[xVarName]}  ${d.data["title"]}`});
+    var div = g
+        .append('text')
+        .attr("id", "tooltip-donut")
+        .style("opacity", 0)
 
-    path.on("mouseenter", function (d) {
+
+    path.on("mouseover", function (e,d) {
         d3.select(this)
             .attr("stroke", "white")
             .transition()
@@ -112,12 +131,17 @@ function BuildPie(id, chartData, options, level) {
                 .duration(200)
                 .attr("d", arc)
                 .attr("stroke", "none");
+            div.transition()
+                .duration('50')
+                .style("opacity", 0);
         })
 
+
+
     path.append("svg:title")
-        .text(function (d) {
-            return d.data[xVarName];
-        });
+            .text(function (d) {
+                return `${d.data[xVarName]}  ${d.data["title"]}`;
+            });
 
     path.style("fill", function (d) {
         return rcolor(d.data[xVarName]);

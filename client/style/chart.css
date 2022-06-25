@@ -1,0 +1,39 @@
+#content text {
+    fill: black;
+    font: 10px sans-serif;
+    text-anchor: end;
+}
+#content {
+    height: 800px;
+    width: 1000px;
+}
+.innerCont {
+
+}
+.axis text {
+    font: 10px sans-serif;
+}
+
+.axis path, .axis line {
+    fill: none;
+    /*stroke: #fff;*/
+    shape-rendering: crispEdges;
+}
+
+body {
+    /*background: #1a1a1a;*/
+    color: black;
+    padding: 10px;
+
+}
+
+path {
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+    z-index: 2;
+}
+.tooltip-donut {
+    position: relative;
+    z-index: 1;
+}
