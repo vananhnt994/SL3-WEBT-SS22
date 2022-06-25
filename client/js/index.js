@@ -1,7 +1,261 @@
 function loadDataFromServer(){
-  // Anmerkung: Hier ist fetch(url, {mode: "cors"}) zu nutzen.
+    // Anmerkung: Hier ist fetch(url, {mode: "cors"}) zu nutzen.
 }
 
-function loadDataFromFile(){
+function loadDataFromFile(file, callback) {
+    var rawFile = new XMLHttpRequest();
+    rawFile.overrideMimeType("application/json")
+    rawFile.open('GET',file, true)
+    rawFile.onreadystatechange =    () => {
+        if(rawFile.readyState === 4 && rawFile.status == "200" ) {
+            callback(rawFile.responseText)
+        }
+    }
+    rawFile.send(null)
+}
 
+var salesData;
+var chartInnerDiv = '<div class="innerCont" style="overflow: auto;top:100px; left: 400px; height:91% ; Width:100% ;position: relative;overflow: hidden;"/>';
+var truncLengh = 30;
+
+$(document).ready(function () {
+    Plot();
+});
+
+function Plot() {
+    loadDataFromFile('../data-backup.json', (text) => {
+        var data = JSON.parse(text)
+        var chartData = data['modules']
+        var options = data['moduleGroups']
+        var chartOptions = [
+            {
+                "captions": options,
+                "color": [{ "A1": "#FFA500", "A2": "#0070C0", "A3": "#ff0000","A4":"#AE79D1","A5":"#79C8D1","A6":"#79D194","A7":"#C8D179"  }],
+                "xaxis": "moduleGroup",
+                "xaxisl1": "moduleName",
+                "yaxis": "moduleAcronym"
+            }
+        ]
+        console.log("charData: "+ chartData);
+        console.log("options " + chartOptions);
+        TransformChartData(chartData, chartOptions, 0);
+        BuildPie("chart", chartData, chartOptions, 0)
+    })
+
+}
+
+function BuildPie(id, chartData, options, level) {
+    var xVarName;
+    var divisionRatio = 2.5;
+    var legendoffset = (level == 0) ? 0 : -40;
+
+    d3.selectAll("#" + id + " .innerCont").remove();
+    $("#" + id).append(chartInnerDiv);
+
+    var yVarName = options[0].yaxis;
+    var width = $($("#" + id + " .innerCont")[0]).outerWidth();
+    var height = $($("#" + id + " .innerCont")[0]).outerHeight();
+    var radius = Math.min(width, height) / divisionRatio;
+
+    if (level == 1) {
+        xVarName = options[0].xaxisl1;
+    }
+    else {
+
+        xVarName = options[0].xaxis;
+    }
+    var rcolor = d3.scaleOrdinal().range(runningColors);
+
+    var arc = d3.arc()
+        .outerRadius(radius)
+        .innerRadius(radius - 200);
+
+    var arcOver = d3.arc().outerRadius(radius + 20).innerRadius(radius - 180);
+
+    var chart = d3.select("#" + id + " .innerCont")
+        .append("svg")  //append svg element inside #chart
+        .attr("width", width)    //set width
+        .attr("height", height)  //set height
+        .append("g")
+        .attr("transform", "translate(" + (width / divisionRatio) + "," + ((height / divisionRatio) + 30) + ")");
+
+    var pie = d3.pie()
+        .sort(null)
+        .value(function (d) {
+            return d.total;
+        })(runningData);
+
+    var g = chart.selectAll(".arc")
+        .data(pie)
+        .enter().append("g")
+        .attr("class", "arc");
+
+    var count = 0;
+
+    var path = g.append("path")
+        .attr("d", arc)
+        .attr("id", function () { return "arc-" + (count++); })
+        .style("opacity", function (d) {
+            return d.data["op"];
+        });
+
+    path.on("mouseenter", function (d) {
+        d3.select(this)
+            .attr("stroke", "white")
+            .transition()
+            .duration(200)
+            .attr("d", arcOver)
+            .attr("stroke-width", 1);
+    })
+        .on("mouseleave", function (d) {
+            d3.select(this).transition()
+                .duration(200)
+                .attr("d", arc)
+                .attr("stroke", "none");
+        })
+
+    path.append("svg:title")
+        .text(function (d) {
+            return d.data[xVarName];
+        });
+
+    path.style("fill", function (d) {
+        return rcolor(d.data[xVarName]);
+    }).transition().duration(1000).attrTween("d", tweenIn)
+
+
+    g.append("text")
+        .attr("transform", function (d) { return "translate(" + arc.centroid(d) + ")"; })
+        .attr("dy", .35)
+        .style("text-anchor", "middle")
+        .style("opacity", 1)
+        .text(function (d) {
+            return d.data[xVarName];
+        });
+
+    count = 0;
+    var legend = chart.selectAll(".legend")
+        .data(runningData).enter()
+        .append("g").attr("class", "legend")
+        .attr("legend-id", function (d) {
+            return count++;
+        })
+        .attr("transform", function (d, i) {
+            return "translate(15," + (parseInt("-" + (runningData.length * 10)) + i * 28 + legendoffset) + ")";
+        })
+        .style("cursor", "pointer")
+
+
+    var leg = legend.append("rect");
+
+    leg.attr("x", width / 2)
+        .attr("width", 18).attr("height", 18)
+        .style("fill", function (d) {
+            return rcolor(d[yVarName]);
+        })
+        .style("opacity", function (d) {
+            return d["op"];
+        });
+    legend.append("text").attr("x", (width / 2) - 5)
+        .attr("y", 9).attr("dy", .35)
+        .style("text-anchor", "end").text(function (d) {
+        return d.title;
+    });
+
+    leg.append("svg:title")
+        .text(function (d) {
+            return d["title"] + " (" + d[yVarName] + ")";
+        });
+
+    function tweenOut(data) {
+        data.startAngle = data.endAngle = (2 * Math.PI);
+        var interpolation = d3.interpolate(this._current, data);
+        this._current = interpolation(0);
+        return function (t) {
+            return arc(interpolation(t));
+        };
+    }
+
+    function tweenIn(data) {
+        var interpolation = d3.interpolate({ startAngle: 0, endAngle: 0 }, data);
+        this._current = interpolation(0);
+        return function (t) {
+            return arc(interpolation(t));
+        };
+    }
+
+}
+
+function TransformChartData(chartData, opts, level, filter) {
+    var result = [];
+    var resultColors = [];
+    var counter = 0;
+    var hasMatch;
+    var xVarName;
+    var yVarName = opts[0].yaxis;
+
+    if (level == 1) {
+        xVarName = opts[0].xaxisl1;
+        for (var i in chartData) {
+            hasMatch = false;
+            for (var index = 0; index < result.length; ++index) {
+                var data = result[index];
+
+                if ((data[xVarName] == chartData[i][xVarName]) && (chartData[i][opts[0].xaxis]) == filter) {
+                    result[index][yVarName] = result[index][yVarName] + chartData[i][yVarName];
+                    hasMatch = true;
+                    break;
+                }
+
+            }
+            if ((hasMatch == false) && ((chartData[i][opts[0].xaxis]) == filter)) {
+                if (result.length < 9) {
+                    let ditem = {}
+                    ditem[xVarName] = chartData[i][xVarName];
+                    ditem[yVarName] = chartData[i][yVarName];
+                    console.log(chartData[i][xVarName])
+                    ditem["title"] = chartData[i][xVarName];
+                    ditem["op"] = 1.0 - parseFloat("0." + (result.length));
+                    result.push(ditem);
+
+                    resultColors[counter] = opts[0].color[0][chartData[i][opts[0].xaxis]];
+
+                    counter += 1;
+                }
+            }
+        }
+    }
+    else {
+        xVarName = opts[0].xaxis;
+        for (var i in chartData) {
+            hasMatch = false;
+            for (var index = 0; index < result.length; ++index) {
+                var data = result[index];
+                if (data[xVarName] == chartData[i][xVarName]) {
+                    // result[index][yVarName] = result[index][yVarName] + chartData[i][yVarName];
+                    hasMatch = true;
+                    break;
+                }
+            }
+            if (hasMatch == false) {
+                let ditem = {};
+                ditem[xVarName] = chartData[i][xVarName];
+                ditem[yVarName] = chartData[i][yVarName];
+                ditem["title"] = opts[0].captions != undefined ? opts[0].captions.find((op) => op['acronym'] == chartData[i][xVarName])['title']  : "";
+                ditem["op"] = 1;
+                ditem["total"] = chartData.filter(c => c['moduleGroup'] == ditem[xVarName]).map(c => c.ects).reduce((a, b) => a + b, 0)
+                result.push(ditem);
+
+                resultColors[counter] = opts[0].color != undefined ? opts[0].color[0][chartData[i][xVarName]] : "";
+
+                counter += 1;
+            }
+        }
+    }
+    console.log(result)
+
+
+    runningData = result;
+    runningColors = resultColors;
+    return;
 }
