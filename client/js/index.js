@@ -21,8 +21,8 @@ const homePage = () => {
     loadDataFromFile(apiUrl, (text) => {
         var data = JSON.parse(text)
         document.getElementById('content').innerHTML += `<h1>Willkommen zum Studiengang Wirtschaftsinformatik</h1></br>
-<h2>PieChart befindet sich durch Navigationsbutton Diagramm</h2></br>
-<h3>Hier sind Daten von letzter Studienleistung</h3></br>${JSON.stringify(data)}`
+        <h2>PieChart befindet sich durch Navigationsbutton Diagramm</h2></br>
+        <h3>Hier sind Daten von letzter Studienleistung</h3></br>${JSON.stringify(data)}`
     })
 }
 window.addEventListener('load',() => {
@@ -30,12 +30,16 @@ window.addEventListener('load',() => {
     Plot()
 })
 function Impressum() {
+    document.getElementById('diagramm').classList.remove('here')
+    document.getElementById('impressum').classList.add('here')
     document.getElementById('content').innerHTML = ''
     document.getElementById('content').innerHTML += '<h1>Hier ist Impressum</h1>'
 }
 
 
 function Plot() {
+    document.getElementById('diagramm').classList.add('here')
+    document.getElementById('impressum').classList.remove('here')
     document.getElementById('content').innerHTML = ''
     loadDataFromFile('../data-backup.json', (text) => {
         var data = JSON.parse(text)
